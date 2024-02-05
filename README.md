@@ -10,3 +10,11 @@ styled-components
 tanstack-query
 axios
 Next.js v14
+
+---
+
+24.02.02
+헤더 생성
+
+24.02.05
+홈 메인 페이지 캐러셀 생성
