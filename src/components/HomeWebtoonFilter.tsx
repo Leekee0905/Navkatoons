@@ -13,17 +13,25 @@ const webtoons_fillter_menu = [
   "카카오 페이지",
   "카카오 웹툰",
 ];
-const week = ["일요", "월요", "화요", "수요", "목요", "금요", "토요"];
+const week = {
+  sun: "일요 웹툰",
+  mon: "월요 웹툰",
+  tue: "화요 웹툰",
+  wed: "수요 웹툰",
+  thu: "목요 웹툰",
+  fri: "금요 웹툰",
+  sat: "토요 웹툰",
+};
 
 const HomeWebtoonFilter = () => {
   const [activeMenu, setActiveMenu] = useState<string>("전체");
-  const today = week[new Date().getDay()];
+  const today = Object.values(week)[new Date().getDay()];
   const handleMenuClick = (menuName: string) => {
     setActiveMenu(menuName);
   };
   return (
     <WebtoonsFillterContainer>
-      <DayOfTheWeek>{`${today} 웹툰`}</DayOfTheWeek>
+      <DayOfTheWeek>{`${today}`}</DayOfTheWeek>
       {webtoons_fillter_menu.map((menus: string) => (
         <WebtoonFillterMenu
           key={menus}
