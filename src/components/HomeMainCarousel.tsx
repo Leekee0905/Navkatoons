@@ -3,29 +3,10 @@ import {
   HomeMainSlider,
   HomeMainSlideTitleBox,
   HomeMainSlideTitleLink,
-  NextSlideBtn,
-  PrevSlideBtn,
+  SlideArrow,
 } from "@/styles/Carousel";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface ArrowProps {
-  className?: string;
-  onClick?: () => void;
-}
-const NextArrow = (props: ArrowProps) => {
-  const { className, onClick } = props;
-  return <NextSlideBtn className={className} onClick={onClick}></NextSlideBtn>;
-};
-
-const PrevArrow = (props: ArrowProps) => {
-  const { className, onClick } = props;
-  return (
-    <PrevSlideBtn className={className} onClick={onClick}>
-      <FontAwesomeIcon icon={faChevronLeft} />
-    </PrevSlideBtn>
-  );
-};
+import { NextArrow, PrevArrow } from "./CarouselArrow";
 
 const HomeMainCarousel = () => {
   const settings = {
