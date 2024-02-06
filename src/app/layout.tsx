@@ -4,6 +4,7 @@ import StyledComponentsRegistry from "../lib/registry";
 import GlobalStyles from "@/styles/GlobalStyles";
 import Header from "@/components/Header";
 import RecoilRootWrapper from "@/states/RecoilWrapper";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
             <GlobalStyles />
             <Header />
             {children}
+            <Footer />
           </StyledComponentsRegistry>
         </body>
       </html>
