@@ -1,5 +1,4 @@
 "use client";
-
 import {
   DayOfTheWeek,
   WebtoonFillterMenu,
@@ -7,13 +6,13 @@ import {
 } from "@/styles/WebtoonsFillter";
 import { useState } from "react";
 
-const webtoons_fillter_menu = [
+export const WEEBTOONS_FILLTER_MENU = [
   "전체",
   "네이버",
   "카카오 페이지",
   "카카오 웹툰",
 ];
-const week = {
+export const WEEK = {
   sun: "일요 웹툰",
   mon: "월요 웹툰",
   tue: "화요 웹툰",
@@ -23,16 +22,17 @@ const week = {
   sat: "토요 웹툰",
 };
 
-const HomeWebtoonFilter = () => {
+const WebtoonFilter = () => {
   const [activeMenu, setActiveMenu] = useState<string>("전체");
-  const today = Object.values(week)[new Date().getDay()];
+
+  const today = Object.values(WEEK)[new Date().getDay()];
   const handleMenuClick = (menuName: string) => {
     setActiveMenu(menuName);
   };
   return (
     <WebtoonsFillterContainer>
       <DayOfTheWeek>{`${today}`}</DayOfTheWeek>
-      {webtoons_fillter_menu.map((menus: string) => (
+      {WEEBTOONS_FILLTER_MENU.map((menus: string) => (
         <WebtoonFillterMenu
           key={menus}
           onClick={() => handleMenuClick(menus)}
@@ -45,4 +45,4 @@ const HomeWebtoonFilter = () => {
   );
 };
 
-export default HomeWebtoonFilter;
+export default WebtoonFilter;
