@@ -17,7 +17,9 @@ const Header = () => {
   return (
     <HeaderContainer>
       <HeaderTitle onClick={() => router.push("/")}>네브카툰</HeaderTitle>
-      <HeaderLink>한눈에 보기</HeaderLink>
+      <HeaderLink onClick={() => router.push("/webtoons")}>
+        한눈에 보기
+      </HeaderLink>
       <SearchContainer>
         <SearchInputField type="text" placeholder="제목, 작가를 입력하세요." />
         <SearchIconContainer>
