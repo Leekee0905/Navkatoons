@@ -1,12 +1,12 @@
 "use client";
 
 import WebtoonFilter, { WEEK } from "@/components/WebtoonFilter";
-import WeekFilterHeader from "./components/WeekendHeader";
+import WeeklyFilterHeader from "./components/WeeklyFilterHeader";
 
 const Page = () => {
   return (
     <div className="total-webtoons">
-      <WeekFilterHeader />
+      <WeeklyFilterHeader />
       <WebtoonFilter />
     </div>
   );
