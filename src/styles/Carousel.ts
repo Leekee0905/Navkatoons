@@ -78,7 +78,7 @@ export const HomeMainSlideTitleLink = styled.a`
 `;
 
 export const HomeSecondarySlideTitle = styled.h3`
-  width: 100%;
+  display: inline-block;
   padding-left: 20px;
   margin-top: 50px;
   cursor: pointer;
