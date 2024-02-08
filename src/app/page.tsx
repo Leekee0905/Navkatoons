@@ -1,7 +1,7 @@
 "use client";
 import HomeMainCarousel from "@/components/HomeMainCarousel";
 import HomeSeconDaryCarousel from "@/components/HomeSecondaryCarousel";
-import HomeWebtoonFilter from "@/components/HomeWebtoonFilter";
+import WebtoonFilter from "@/components/WebtoonFilter";
 
 interface HomeWebtoosType {
   new: string;
@@ -27,11 +27,15 @@ const HomeWebtoons: HomeWebtoosType = {
 const Home = () => {
   return (
     <div className="home_contents">
-      <HomeWebtoonFilter />
+      <WebtoonFilter />
       <HomeMainCarousel />
-      {Object.keys(HomeWebtoons).map((title: string) => {
+      {Object.keys(HomeWebtoons).map((title: string, idx: number) => {
         return (
-          <HomeSeconDaryCarousel title={HomeWebtoons[title]} class={title} />
+          <HomeSeconDaryCarousel
+            title={HomeWebtoons[title]}
+            class={title}
+            key={idx}
+          />
         );
       })}
     </div>
