@@ -27,7 +27,7 @@ const HomeWebtoons: HomeWebtoosType = {
 const Home = () => {
   return (
     <div className="home_contents">
-      <WebtoonFilter />
+      <WebtoonFilter home={true} />
       <HomeMainCarousel />
       {Object.keys(HomeWebtoons).map((title: string, idx: number) => {
         return (

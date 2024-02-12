@@ -1,10 +1,16 @@
 "use client";
+import { selectedMenuState } from "@/states/atoms/SelectedMenu";
 import {
   DayOfTheWeek,
   WebtoonFillterMenu,
   WebtoonsFillterContainer,
 } from "@/styles/WebtoonsFillter";
 import { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+
+interface NowPage {
+  home: boolean;
+}
 
 export const WEEBTOONS_FILLTER_MENU = [
   "전체",
@@ -22,16 +28,22 @@ export const WEEK = {
   sat: "토요 웹툰",
 };
 
-const WebtoonFilter = () => {
+const WebtoonFilter = (props: NowPage) => {
   const [activeMenu, setActiveMenu] = useState<string>("전체");
-
+  const selected = useRecoilValue(selectedMenuState);
   const today = Object.values(WEEK)[new Date().getDay()];
+
+  const selectedMenuNameGenerator = (menu: string) => {
+    return selected.length > 1 ? `${menu} 웹툰` : `${menu}요 웹툰`;
+  };
   const handleMenuClick = (menuName: string) => {
     setActiveMenu(menuName);
   };
   return (
     <WebtoonsFillterContainer>
-      <DayOfTheWeek>{`${today}`}</DayOfTheWeek>
+      <DayOfTheWeek>
+        {props.home ? `${today}` : `${selectedMenuNameGenerator(selected)}`}
+      </DayOfTheWeek>
       {WEEBTOONS_FILLTER_MENU.map((menus: string) => (
         <WebtoonFillterMenu
           key={menus}

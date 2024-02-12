@@ -1,10 +1,25 @@
+import { selectedMenuState } from "@/states/atoms/SelectedMenu";
 import {
   WeekWebtoonsFilterContainer,
   WeekWebtoonsFilterMenu,
 } from "@/styles/WebtoonsFillter";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
 
-const WEEK_FILTER_MENU = {
+interface WEEK_FILTER_MENU_TYPE {
+  all: string;
+  mon: string;
+  tue: string;
+  wed: string;
+  thu: string;
+  fri: string;
+  sat: string;
+  sun: string;
+  new: string;
+  finished: string;
+  [key: string]: string;
+}
+const WEEK_FILTER_MENU: WEEK_FILTER_MENU_TYPE = {
   all: "요일전체",
   mon: "월",
   tue: "화",
@@ -18,7 +33,7 @@ const WEEK_FILTER_MENU = {
 };
 
 const WeeklyFilterHeader = () => {
-  const [activeMenu, setActiveMenu] = useState<string>("요일전체");
+  const [activeMenu, setActiveMenu] = useRecoilState(selectedMenuState);
 
   const handleMenuClick = (day: string) => {
     setActiveMenu(day);
