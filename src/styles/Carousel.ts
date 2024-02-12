@@ -1,5 +1,3 @@
-"use client";
-
 import Slider from "react-slick";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
@@ -56,14 +54,13 @@ export const HomeMainSlider = styled(Slider)`
 `;
 
 export const HomeMainSlide = styled.div`
-  color: white;
   border: 1px solid white;
   border-radius: 1rem;
-  background-color: black; /* 원하는 배경색 설정 */
+  background-color: #ebebeb; /* 원하는 배경색 설정 */
   height: 550px;
 `;
 export const HomeMainSlideTitleBox = styled.div`
-  color: white;
+  color: black;
   font-weight: bold;
   height: 10%;
   display: flex;
@@ -117,6 +114,7 @@ export const HomeSecondarySlideWebtoonTitleBox = styled.div`
   align-items: center;
   padding-left: 12px;
   text-decoration: none;
+  margin-top: 1em;
 `;
 
 export const HomeSecondarySlideTitleLink = styled.a`
