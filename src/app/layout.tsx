@@ -3,8 +3,9 @@ import { Inter } from "next/font/google";
 import StyledComponentsRegistry from "../lib/registry";
 import GlobalStyles from "@/styles/GlobalStyles";
 import Header from "@/components/Header";
-import RecoilRootWrapper from "@/states/RecoilWrapper";
+import RecoilRootWrapper from "@/lib/RecoilWrapper";
 import Footer from "@/components/Footer";
+import QueryProvider from "@/lib/QueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,17 +21,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <RecoilRootWrapper>
-      <html lang="en">
-        <body className={inter.className}>
-          <StyledComponentsRegistry>
-            <GlobalStyles />
-            <Header />
-            {children}
-            <Footer />
-          </StyledComponentsRegistry>
-        </body>
-      </html>
-    </RecoilRootWrapper>
+    <html lang="en">
+      <body className={inter.className}>
+        <QueryProvider>
+          <RecoilRootWrapper>
+            <StyledComponentsRegistry>
+              <GlobalStyles />
+              <Header />
+              {children}
+              <Footer />
+            </StyledComponentsRegistry>
+          </RecoilRootWrapper>
+        </QueryProvider>
+      </body>
+    </html>
   );
 }

@@ -36,17 +36,17 @@ export const SlideArrow = styled.div`
 
 export const HomeMainSlider = styled(Slider)`
   width: 100%;
-  height: 550px;
+  height: 700px;
   margin: 0 auto;
   border-radius: 1rem;
   .slick-track {
-    max-height: 550px;
+    max-height: 700px;
     display: flex;
     justify-content: center;
   }
   .slick-list {
     border-radius: 1rem;
-    max-height: 550px;
+    max-height: 700px;
   }
   .slick-slide {
     margin: 0 5px;
@@ -57,7 +57,7 @@ export const HomeMainSlide = styled.div`
   border: 1px solid white;
   border-radius: 1rem;
   background-color: #ebebeb; /* 원하는 배경색 설정 */
-  height: 550px;
+  height: 700px;
 `;
 export const HomeMainSlideTitleBox = styled.div`
   color: black;
@@ -122,4 +122,12 @@ export const HomeSecondarySlideTitleLink = styled.a`
   color: inherit;
   text-decoration: none;
   word-wrap: break-word;
+`;
+
+export const HomeSecondarySlideTitleText = styled.div`
+  display: inline-block;
+  padding-left: 20px;
+  margin-top: 50px;
+  font-weight: bold;
+  font-size: 25px;
 `;

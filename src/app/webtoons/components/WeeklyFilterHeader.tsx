@@ -1,4 +1,4 @@
-import { selectedMenuState } from "@/states/atoms/SelectedMenu";
+import { selectedMenuState } from "@/states/SelectedMenu";
 import {
   WeekWebtoonsFilterContainer,
   WeekWebtoonsFilterMenu,
@@ -7,7 +7,6 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 
 interface WEEK_FILTER_MENU_TYPE {
-  all: string;
   mon: string;
   tue: string;
   wed: string;
@@ -19,7 +18,7 @@ interface WEEK_FILTER_MENU_TYPE {
   finished: string;
   [key: string]: string;
 }
-const WEEK_FILTER_MENU: WEEK_FILTER_MENU_TYPE = {
+export const WEEK_FILTER_MENU: WEEK_FILTER_MENU_TYPE = {
   all: "요일전체",
   mon: "월",
   tue: "화",

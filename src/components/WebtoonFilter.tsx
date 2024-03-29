@@ -1,5 +1,10 @@
 "use client";
-import { selectedMenuState } from "@/states/atoms/SelectedMenu";
+import {
+  TODAY,
+  WEEK,
+  selectedHomeCarouselType,
+  selectedMenuState,
+} from "@/states/SelectedMenu";
 import {
   DayOfTheWeek,
   WebtoonFillterMenu,
@@ -12,26 +17,25 @@ interface NowPage {
   home: boolean;
 }
 
-export const WEEBTOONS_FILLTER_MENU = [
-  "전체",
-  "네이버",
-  "카카오 페이지",
-  "카카오 웹툰",
-];
-export const WEEK = {
-  sun: "일요 웹툰",
-  mon: "월요 웹툰",
-  tue: "화요 웹툰",
-  wed: "수요 웹툰",
-  thu: "목요 웹툰",
-  fri: "금요 웹툰",
-  sat: "토요 웹툰",
+interface WebtoonFillterType {
+  naver: string;
+  kakao: string;
+  kakaoPage: string;
+  [key: string]: string;
+}
+
+export const WEBTOONS_FILLTER_MENU: WebtoonFillterType = {
+  all: "전체",
+  naver: "네이버",
+  kakaoPage: "카카오 페이지",
+  kakao: "카카오 웹툰",
 };
 
 const WebtoonFilter = (props: NowPage) => {
-  const [activeMenu, setActiveMenu] = useState<string>("전체");
+  const [activeMenu, setActiveMenu] = useRecoilState<string>(
+    selectedHomeCarouselType
+  );
   const selected = useRecoilValue(selectedMenuState);
-  const today = Object.values(WEEK)[new Date().getDay()];
 
   const selectedMenuNameGenerator = (menu: string) => {
     return selected.length > 1 ? `${menu} 웹툰` : `${menu}요 웹툰`;
@@ -42,9 +46,9 @@ const WebtoonFilter = (props: NowPage) => {
   return (
     <WebtoonsFillterContainer>
       <DayOfTheWeek>
-        {props.home ? `${today}` : `${selectedMenuNameGenerator(selected)}`}
+        {props.home ? `${TODAY}` : `${selectedMenuNameGenerator(selected)}`}
       </DayOfTheWeek>
-      {WEEBTOONS_FILLTER_MENU.map((menus: string) => (
+      {Object.values(WEBTOONS_FILLTER_MENU).map((menus: string) => (
         <WebtoonFillterMenu
           key={menus}
           onClick={() => handleMenuClick(menus)}

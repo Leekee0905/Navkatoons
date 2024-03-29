@@ -2,9 +2,9 @@
 import HomeMainCarousel from "@/components/HomeMainCarousel";
 import HomeSeconDaryCarousel from "@/components/HomeSecondaryCarousel";
 import WebtoonFilter from "@/components/WebtoonFilter";
+import { HomeSecondarySlideTitleText } from "@/styles/Carousel";
 
 interface HomeWebtoosType {
-  new: string;
   sun: string;
   mon: string;
   tue: string;
@@ -15,7 +15,6 @@ interface HomeWebtoosType {
   [key: string]: string;
 }
 const HomeWebtoons: HomeWebtoosType = {
-  new: "신작 웹툰",
   sun: "일요 웹툰",
   mon: "월요 웹툰",
   tue: "화요 웹툰",
@@ -24,11 +23,15 @@ const HomeWebtoons: HomeWebtoosType = {
   fri: "금요 웹툰",
   sat: "토요 웹툰",
 };
+
 const Home = () => {
   return (
     <div className="home_contents">
       <WebtoonFilter home={true} />
       <HomeMainCarousel />
+      <HomeSecondarySlideTitleText>
+        각 페이지 별 TOP 10 모음
+      </HomeSecondarySlideTitleText>
       {Object.keys(HomeWebtoons).map((title: string, idx: number) => {
         return (
           <HomeSeconDaryCarousel

@@ -1,14 +1,43 @@
+"use client";
+
 import {
   HomeMainSlide,
   HomeMainSlider,
   HomeMainSlideTitleBox,
   HomeMainSlideTitleLink,
-  SlideArrow,
 } from "@/styles/Carousel";
 
 import { NextArrow, PrevArrow } from "./CarouselArrow";
+import { useQuery } from "@tanstack/react-query";
+import { WEBTOONS_FILLTER_MENU } from "./WebtoonFilter";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { selectedHomeCarouselType, WEEK } from "@/states/SelectedMenu";
+import { preload } from "./ImagePreload";
 
-const HomeMainCarousel = () => {
+export interface CarouselDataType {
+  additional: {
+    adult: boolean;
+    new: boolean;
+    rest: boolean;
+  };
+  singularityList: Array<any>;
+  up: boolean;
+  author: string;
+  fanCount: number;
+  img: string;
+  searchKeyword: string;
+  service: string;
+  title: string;
+  updateDays: Array<string>;
+  url: string;
+  webtoonId: number;
+  _id: string;
+}
+
+const todayKey = Object.keys(WEEK)[new Date().getDay()];
+const HomeMainCarousel = ({ data }: any) => {
   const settings = {
     centerMode: true,
     infinite: true,
@@ -20,29 +49,56 @@ const HomeMainCarousel = () => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const [carouselData, setCarouselData] = useState<CarouselDataType[]>([]);
+  const selected = useRecoilValue(selectedHomeCarouselType);
+  const filter = Object.keys(WEBTOONS_FILLTER_MENU).find(
+    (key) => WEBTOONS_FILLTER_MENU[key] === selected
+  );
+  const carouselDataQuery = useQuery({
+    queryKey: ["type", filter],
+    queryFn: () =>
+      axios.get("/api/mainCarousel", {
+        params: {
+          service: filter,
+          updateDay: todayKey,
+        },
+      }),
+    staleTime: Infinity,
+  });
+  useEffect(() => {
+    if (carouselDataQuery.isSuccess) {
+      setCarouselData(carouselDataQuery.data.data.response);
+      carouselDataQuery.data.data.response.forEach((e: CarouselDataType) =>
+        preload(e.img)
+      );
+    }
+  }, [carouselDataQuery]);
+
   return (
     <div className="slider-container">
       <HomeMainSlider {...settings}>
-        {arr.map((e, idx) => (
-          <HomeMainSlide key={idx}>
-            <a href="https://webtoon.kakao.com/content/스포일러-보는-드라마-작가/3093">
-              <img
-                width="100%"
-                height="90%"
-                style={{ cursor: "pointer" }}
-                src={
-                  "https://kr-a.kakaopagecdn.com/P/C/3093/c1/2x/b973723c-39bb-4d69-b614-1b07ba82e2f6.png"
-                }
-              />
-            </a>
-            <HomeMainSlideTitleBox>
-              <HomeMainSlideTitleLink href="https://webtoon.kakao.com/content/스포일러-보는-드라마-작가/3093">
-                스포일러 보는 드라마 작가
-              </HomeMainSlideTitleLink>
-            </HomeMainSlideTitleBox>
-          </HomeMainSlide>
-        ))}
+        {carouselData.map((e: any, idx: number) => {
+          return (
+            <HomeMainSlide key={idx}>
+              <a href={e.url}>
+                <img
+                  alt="MainCarousel"
+                  width={"100%"}
+                  height={"90%"}
+                  style={{ cursor: "pointer", objectFit: "contain" }}
+                  src={e.img}
+                  loading="lazy"
+                />
+              </a>
+              <HomeMainSlideTitleBox>
+                <HomeMainSlideTitleLink href={e.url}>
+                  {e.title}
+                </HomeMainSlideTitleLink>
+              </HomeMainSlideTitleBox>
+            </HomeMainSlide>
+          );
+        })}
       </HomeMainSlider>
     </div>
   );

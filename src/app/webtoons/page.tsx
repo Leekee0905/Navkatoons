@@ -1,6 +1,6 @@
 "use client";
 
-import WebtoonFilter, { WEEK } from "@/components/WebtoonFilter";
+import WebtoonFilter from "@/components/WebtoonFilter";
 import WeeklyFilterHeader from "./components/WeeklyFilterHeader";
 import { WebtoonsBox, WebtoonsListContainer } from "@/styles/WebtoonsListBox";
 import {
