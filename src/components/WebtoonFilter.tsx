@@ -2,6 +2,7 @@
 import {
   TODAY,
   WEEK,
+  selectedAllWebtoonType,
   selectedHomeCarouselType,
   selectedMenuState,
 } from "@/states/SelectedMenu";
@@ -10,7 +11,6 @@ import {
   WebtoonFillterMenu,
   WebtoonsFillterContainer,
 } from "@/styles/WebtoonsFillter";
-import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 interface NowPage {
@@ -33,7 +33,7 @@ export const WEBTOONS_FILLTER_MENU: WebtoonFillterType = {
 
 const WebtoonFilter = (props: NowPage) => {
   const [activeMenu, setActiveMenu] = useRecoilState<string>(
-    selectedHomeCarouselType
+    props.home ? selectedHomeCarouselType : selectedAllWebtoonType
   );
   const selected = useRecoilValue(selectedMenuState);
 

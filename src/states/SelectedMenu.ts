@@ -20,3 +20,8 @@ export const selectedHomeCarouselType = atom({
   key: "selectedHomeCarouselType",
   default: "전체",
 });
+
+export const selectedAllWebtoonType = atom({
+  key: "selectedAllWebtoonType",
+  default: "전체",
+});

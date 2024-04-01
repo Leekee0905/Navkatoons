@@ -3,7 +3,7 @@ import {
   WeekWebtoonsFilterContainer,
   WeekWebtoonsFilterMenu,
 } from "@/styles/WebtoonsFillter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
 interface WEEK_FILTER_MENU_TYPE {
@@ -37,6 +37,7 @@ const WeeklyFilterHeader = () => {
   const handleMenuClick = (day: string) => {
     setActiveMenu(day);
   };
+
   return (
     <WeekWebtoonsFilterContainer>
       {Object.values(WEEK_FILTER_MENU).map((day) => (
