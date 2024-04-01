@@ -2,7 +2,6 @@
 import HomeMainCarousel from "@/components/HomeMainCarousel";
 import HomeSeconDaryCarousel from "@/components/HomeSecondaryCarousel";
 import WebtoonFilter from "@/components/WebtoonFilter";
-import { HomeSecondarySlideTitleText } from "@/styles/Carousel";
 
 interface HomeWebtoosType {
   sun: string;
@@ -29,9 +28,6 @@ const Home = () => {
     <div className="home_contents">
       <WebtoonFilter home={true} />
       <HomeMainCarousel />
-      <HomeSecondarySlideTitleText>
-        각 페이지 별 TOP 10 모음
-      </HomeSecondarySlideTitleText>
       {Object.keys(HomeWebtoons).map((title: string, idx: number) => {
         return (
           <HomeSeconDaryCarousel

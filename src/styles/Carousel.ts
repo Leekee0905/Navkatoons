@@ -123,11 +123,3 @@ export const HomeSecondarySlideTitleLink = styled.a`
   text-decoration: none;
   word-wrap: break-word;
 `;
-
-export const HomeSecondarySlideTitleText = styled.div`
-  display: inline-block;
-  padding-left: 20px;
-  margin-top: 50px;
-  font-weight: bold;
-  font-size: 25px;
-`;
