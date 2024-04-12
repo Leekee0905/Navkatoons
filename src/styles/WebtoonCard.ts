@@ -7,6 +7,7 @@ export const WebtoonCardImg = styled.img`
   text-decoration: none;
   background-color: #ebebeb;
   cursor: pointer;
+  object-fit: contain;
 `;
 
 export const WebtoonCardTextBox = styled.div`
