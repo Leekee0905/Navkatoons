@@ -32,15 +32,6 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     e.img = "http:" + e.img;
   });
   switch (service) {
-    case "all": {
-      return NextResponse.json({
-        response: [
-          ...naver.data.webtoons.slice(0, 5),
-          ...kakao.data.webtoons.slice(0, 5),
-          ...kakaoPage.data.webtoons.slice(0, 5),
-        ],
-      });
-    }
     case "naver": {
       return NextResponse.json({
         response: naver.data.webtoons,

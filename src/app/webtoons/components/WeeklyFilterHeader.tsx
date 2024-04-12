@@ -14,7 +14,6 @@ interface WEEK_FILTER_MENU_TYPE {
   fri: string;
   sat: string;
   sun: string;
-  new: string;
   finished: string;
   [key: string]: string;
 }
@@ -27,7 +26,6 @@ export const WEEK_FILTER_MENU: WEEK_FILTER_MENU_TYPE = {
   fri: "금",
   sat: "토",
   sun: "일",
-  new: "신작",
   finished: "완결",
 };
 

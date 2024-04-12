@@ -18,10 +18,10 @@ export const selectedMenuState = atom({
 
 export const selectedHomeCarouselType = atom({
   key: "selectedHomeCarouselType",
-  default: "전체",
+  default: "네이버",
 });
 
 export const selectedAllWebtoonType = atom({
   key: "selectedAllWebtoonType",
-  default: "전체",
+  default: "네이버",
 });
