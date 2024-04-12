@@ -1,7 +1,11 @@
 "use client";
 
-import WebtoonFilter from "@/components/WebtoonFilter";
-import WeeklyFilterHeader from "./components/WeeklyFilterHeader";
+import WebtoonFilter, {
+  WEBTOONS_FILLTER_MENU,
+} from "@/components/WebtoonFilter";
+import WeeklyFilterHeader, {
+  WEEK_FILTER_MENU,
+} from "./components/WeeklyFilterHeader";
 import { WebtoonsBox, WebtoonsListContainer } from "@/styles/WebtoonsListBox";
 import {
   WebtoonCardImg,
@@ -9,44 +13,78 @@ import {
   WebtoonCardTextBox,
   WebtoonCardTextTitle,
 } from "@/styles/WebtoonCard";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { preload } from "react-dom";
+import { useRecoilValue } from "recoil";
+import {
+  selectedAllWebtoonType,
+  selectedMenuState,
+} from "@/states/SelectedMenu";
+import { WebtoonDataType } from "@/components/HomeMainCarousel";
+import Pagination from "@/components/Pagination";
 
 const Webtoons = () => {
-  const newar = [
-    "스포일러 보는",
-    "스포일러 보는 드라마 작가 ",
-    "스포일러 보는 드라마 작가 asdfa asdfasdf asdf a",
-    "스포일러 보는 드라마 작가 asdfa ",
-    "스포일러 보는 드라마 작가 asdfa asdfasdf asdf a",
-    "스포일러 보는 드라마 작가 asdfa asdfasdf asdf a",
-    "역대급 영지 설계사",
-    "스포일러 보는",
-    "스포일러 보는 드라마 작가 ",
-    "스포일러 보는 드라마 작가 asdfa asdfasdf asdf a",
-    "샬롯에게는 다섯 명의 제자가 있다",
-    "스포일러 보는 드라마 작가 asdfa asdfasdf asdf a",
-    "스포일러 보는 드라마 작가 asdfa asdfasdf asdf a",
-    "스포일러 보는 드라마 작가 이번 스포일러 보는 드라마 작가 이번스포일러 보는 드라마 작가 이번스포일러 보는 드라마 작가 이번",
-  ];
+  const [webtoonData, setWebtoonData] = useState<WebtoonDataType[]>([]);
+  const [page, setPage] = useState<number>(0);
+  const selectedWeek = useRecoilValue(selectedMenuState);
+  const selected = useRecoilValue(selectedAllWebtoonType);
+
+  const filter = Object.keys(WEBTOONS_FILLTER_MENU).find(
+    (key) => WEBTOONS_FILLTER_MENU[key] === selected
+  );
+  const weekFilter = Object.keys(WEEK_FILTER_MENU).find(
+    (key) => WEEK_FILTER_MENU[key] === selectedWeek
+  );
+
+  const webtoonDataQuery = useQuery({
+    queryKey: ["type", filter, selectedWeek, page],
+    queryFn: () =>
+      axios.get("/api/webtoonList", {
+        params: {
+          service: filter,
+          updateDay: weekFilter,
+          page: page,
+        },
+      }),
+    staleTime: Infinity,
+  });
+
+  useEffect(() => {
+    if (webtoonDataQuery.isSuccess) {
+      setWebtoonData(webtoonDataQuery.data.data.response);
+      webtoonDataQuery.data.data.response.forEach((e: any) => preload(e.img));
+    }
+    console.log(page);
+  }, [webtoonDataQuery]);
+
   return (
     <div className="total-webtoons">
       <WeeklyFilterHeader />
       <WebtoonFilter home={false} />
       <WebtoonsListContainer>
-        {newar.map((e) => (
-          <WebtoonsBox key={e}>
-            <a href="https://webtoon.kakao.com/content/스포일러-보는-드라마-작가/3093">
-              <WebtoonCardImg src="https://kr-a.kakaopagecdn.com/P/C/3093/c1/2x/b973723c-39bb-4d69-b614-1b07ba82e2f6.png" />
+        {webtoonData.map((e, idx) => (
+          <WebtoonsBox key={idx}>
+            <a href={e.url}>
+              <WebtoonCardImg src={e.img} />
             </a>
 
             <WebtoonCardTextBox>
-              <WebtoonCardTextTitle href="https://webtoon.kakao.com/content/스포일러-보는-드라마-작가/3093">
-                {e}
+              <WebtoonCardTextTitle href={e.url}>
+                {e.title}
               </WebtoonCardTextTitle>
-              <WebtoonCardTextAuthor>author</WebtoonCardTextAuthor>
+              <WebtoonCardTextAuthor>{e.author}</WebtoonCardTextAuthor>
             </WebtoonCardTextBox>
           </WebtoonsBox>
         ))}
       </WebtoonsListContainer>
+      <Pagination
+        page={page}
+        week={weekFilter}
+        service={filter}
+        setPage={setPage}
+      />
     </div>
   );
 };
