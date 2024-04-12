@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { preload } from "react-dom";
-import { CarouselDataType } from "./HomeMainCarousel";
+import { WebtoonDataType } from "./HomeMainCarousel";
 import Image from "next/image";
 
 const HomeSeconDaryCarousel = (props: { title: string; class: string }) => {
@@ -22,13 +22,13 @@ const HomeSeconDaryCarousel = (props: { title: string; class: string }) => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
-  const [carouselData, setCarouselData] = useState<CarouselDataType[]>([]);
+  const [carouselData, setCarouselData] = useState<WebtoonDataType[]>([]);
   const carouselDataQuery = useQuery({
     queryKey: [props.class],
     queryFn: () =>
       axios.get("/api/secondaryCarousel", {
         params: {
-          service: "all",
+          service: "naver",
           updateDay: props.class,
         },
       }),
@@ -37,7 +37,7 @@ const HomeSeconDaryCarousel = (props: { title: string; class: string }) => {
   useEffect(() => {
     if (carouselDataQuery.isSuccess) {
       setCarouselData(carouselDataQuery.data.data.response);
-      carouselDataQuery.data.data.response.forEach((e: CarouselDataType) =>
+      carouselDataQuery.data.data.response.forEach((e: WebtoonDataType) =>
         preload(e.img)
       );
     }

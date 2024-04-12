@@ -16,7 +16,7 @@ import { useRecoilValue } from "recoil";
 import { selectedHomeCarouselType, WEEK } from "@/states/SelectedMenu";
 import { preload } from "./ImagePreload";
 
-export interface CarouselDataType {
+export interface WebtoonDataType {
   additional: {
     adult: boolean;
     new: boolean;
@@ -50,7 +50,7 @@ const HomeMainCarousel = ({ data }: any) => {
     prevArrow: <PrevArrow />,
   };
 
-  const [carouselData, setCarouselData] = useState<CarouselDataType[]>([]);
+  const [carouselData, setCarouselData] = useState<WebtoonDataType[]>([]);
   const selected = useRecoilValue(selectedHomeCarouselType);
   const filter = Object.keys(WEBTOONS_FILLTER_MENU).find(
     (key) => WEBTOONS_FILLTER_MENU[key] === selected
@@ -69,7 +69,7 @@ const HomeMainCarousel = ({ data }: any) => {
   useEffect(() => {
     if (carouselDataQuery.isSuccess) {
       setCarouselData(carouselDataQuery.data.data.response);
-      carouselDataQuery.data.data.response.forEach((e: CarouselDataType) =>
+      carouselDataQuery.data.data.response.forEach((e: WebtoonDataType) =>
         preload(e.img)
       );
     }

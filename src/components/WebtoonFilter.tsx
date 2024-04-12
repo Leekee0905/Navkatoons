@@ -25,7 +25,6 @@ interface WebtoonFillterType {
 }
 
 export const WEBTOONS_FILLTER_MENU: WebtoonFillterType = {
-  all: "전체",
   naver: "네이버",
   kakaoPage: "카카오 페이지",
   kakao: "카카오 웹툰",
