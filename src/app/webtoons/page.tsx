@@ -56,7 +56,6 @@ const Webtoons = () => {
       setWebtoonData(webtoonDataQuery.data.data.response);
       webtoonDataQuery.data.data.response.forEach((e: any) => preload(e.img));
     }
-    console.log(page);
   }, [webtoonDataQuery]);
 
   return (

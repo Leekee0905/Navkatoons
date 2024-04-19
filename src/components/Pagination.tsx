@@ -5,8 +5,6 @@ const Pagination = ({ page, setPage, week, service }: any) => {
   //const [itemOffset, setItemOffset] = useState(0);
   //const endOffset = itemOffset + itemsPerPage;
   //const currentItems = items.slice(itemOffset, endOffset);
-  const [nowPage, setNowPage] = useState<number>(0);
-  console.log(week, service);
   const getPageCount = (week: string, service: string): number => {
     switch (service) {
       case "naver":
