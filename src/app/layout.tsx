@@ -6,6 +6,8 @@ import Header from "@/components/Header";
 import RecoilRootWrapper from "@/lib/RecoilWrapper";
 import Footer from "@/components/Footer";
 import QueryProvider from "@/lib/QueryProvider";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +30,9 @@ export default function RootLayout({
             <StyledComponentsRegistry>
               <GlobalStyles />
               <Header />
-              {children}
+              <main>
+                <Suspense fallback={<Loading />}>{children}</Suspense>
+              </main>
               <Footer />
             </StyledComponentsRegistry>
           </RecoilRootWrapper>
