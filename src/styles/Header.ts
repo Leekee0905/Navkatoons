@@ -19,7 +19,7 @@ export const HeaderLink = styled.h4`
   margin-left: 24px;
 `;
 
-export const SearchContainer = styled.div`
+export const SearchContainer = styled.form`
   display: flex;
   width: 220px;
   align-items: center;
@@ -32,7 +32,9 @@ export const SearchInputField = styled.input`
   border-radius: 4px;
   margin-right: 4px;
 `;
-export const SearchIconContainer = styled.div`
-  margin-left: -28px;
+export const SearchIconButton = styled.button`
+  margin-left: -35px;
   z-index: 1;
+  background-color: white;
+  border: 0;
 `;
