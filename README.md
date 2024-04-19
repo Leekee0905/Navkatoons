@@ -6,14 +6,14 @@ Next.js 14버전을 사용하여 진행할 예정
 
 24.02.01 ~ 24.04.19
 
-styled-components
-tanstack-query
-axios
-Next.js v14
+styled-components  
+tanstack-query  
+axios  
+Next.js v14  
 
 ---
 
-API : https://github.com/HyeokjaeLee/korea-webtoon-api
+API : https://github.com/HyeokjaeLee/korea-webtoon-api  
 URL : https://navkatoons.vercel.app
 
 ---
