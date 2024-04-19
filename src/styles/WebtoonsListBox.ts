@@ -10,9 +10,10 @@ export const WebtoonsBox = styled.li`
 export const WebtoonsListContainer = styled.ul`
   width: 100%;
   display: grid;
-  grid-gap: 1em 1em;
+  grid-gap: 1em 0;
   list-style: none;
-  padding: 0 1em;
+  margin: 0;
+  padding: 0;
   place-items: center;
   grid-template-columns: repeat(5, 1fr);
 `;
