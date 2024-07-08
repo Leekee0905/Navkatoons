@@ -5,54 +5,66 @@ import { apiInstance } from "../apiInstance";
 export const GET = async (req: NextRequest, res: NextResponse) => {
   const params = req.nextUrl.searchParams;
   const day =
-    params.get("updateDay") === "all" ? null : params.get("updateDay");
+    params.get("updateDay") === "all"
+      ? null
+      : params.get("updateDay")?.toUpperCase();
   const service = params.get("service");
   const page = params.get("page");
 
-  // 카페 100 네이버 97페이지까지 카웹 77
-  const naver = await apiInstance.get("", {
-    params: {
-      service: "naver",
-      updateDay: day,
-      perPage: 25,
-      page: page,
-    },
-  });
-  const kakao = await apiInstance.get("", {
-    params: {
-      service: "kakao",
-      updateDay: day,
-      perPage: 25,
-      page: page,
-    },
-  });
-  let kakaoPage = await apiInstance.get("", {
-    params: {
-      service: "kakaoPage",
-      updateDay: day,
-      perPage: 25,
-      page: page,
-    },
-  });
+  try {
+    // 카페 100 네이버 97페이지까지 카웹 77
+    const naver = await apiInstance.get("/webtoons", {
+      params: {
+        provider: "NAVER",
+        updateDay: day,
+        perPage: 25,
+        page: page,
+      },
+    });
+    const kakao = await apiInstance.get("/webtoons", {
+      params: {
+        provider: "KAKAO",
+        updateDay: day,
+        perPage: 25,
+        page: page,
+      },
+    });
+    const kakaoPage = await apiInstance.get("/webtoons", {
+      params: {
+        provider: "KAKAO_PAGE",
+        updateDay: day,
+        perPage: 25,
+        page: page,
+      },
+    });
 
-  kakaoPage.data.webtoons.forEach((e: any) => {
-    e.img = "http:" + e.img;
-  });
-  switch (service) {
-    case "naver": {
-      return NextResponse.json({
-        response: naver.data.webtoons,
-      });
+    switch (service) {
+      case "naver": {
+        return NextResponse.json({
+          response: naver.data.webtoons,
+          //total: naver.data.total,
+        });
+      }
+      case "kakao": {
+        return NextResponse.json({
+          response: kakao.data.webtoons,
+          //total: kakao.data.total,
+        });
+      }
+      case "kakaoPage": {
+        return NextResponse.json({
+          response: kakaoPage.data.webtoons,
+          //total: kakaoPage.data.total,
+        });
+      }
+      default: {
+        return NextResponse.json({
+          response: [],
+          total: undefined,
+        });
+      }
     }
-    case "kakao": {
-      return NextResponse.json({
-        response: kakao.data.webtoons,
-      });
-    }
-    case "kakaoPage": {
-      return NextResponse.json({
-        response: kakaoPage.data.webtoons,
-      });
-    }
+  } catch (error) {
+    return NextResponse.json({ error: "" }, { status: 404 });
   }
 };

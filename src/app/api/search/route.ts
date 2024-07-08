@@ -6,7 +6,7 @@ import { apiInstance } from "../apiInstance";
 export const GET = async (req: NextRequest, res: NextResponse) => {
   const params = req.nextUrl.searchParams;
   const keyword = params.get("key");
-  const searchRes = await apiInstance.get("/search", {
+  const searchRes = await apiInstance.get("/webtoons", {
     params: {
       keyword: keyword,
     },
