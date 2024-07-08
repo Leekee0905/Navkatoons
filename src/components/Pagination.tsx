@@ -1,5 +1,4 @@
 import { CustomPaginate } from "@/styles/Pagination";
-import { useEffect, useState } from "react";
 
 const Pagination = ({ page, setPage, week, service }: any) => {
   //const [itemOffset, setItemOffset] = useState(0);
