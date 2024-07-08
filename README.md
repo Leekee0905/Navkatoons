@@ -7,12 +7,12 @@
 styled-components  
 tanstack-query  
 axios  
-Next.js v14.0.1 app router  
+Next.js v14.0.1 app router
 
 ---
 
 API : https://github.com/HyeokjaeLee/korea-webtoon-api  
-URL : API 변경으로 인한 임시 폐쇄
+URL : https://navkatoons.vercel.app/
 
 ---
 
