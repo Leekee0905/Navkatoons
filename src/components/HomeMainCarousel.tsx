@@ -17,23 +17,20 @@ import { selectedHomeCarouselType, WEEK } from "@/states/SelectedMenu";
 import { preload } from "./ImagePreload";
 
 export interface WebtoonDataType {
-  additional: {
-    adult: boolean;
-    new: boolean;
-    rest: boolean;
-  };
-  singularityList: Array<any>;
-  up: boolean;
-  author: string;
-  fanCount: number;
-  img: string;
-  searchKeyword: string;
-  service: string;
+  id: string;
   title: string;
+  provider: string;
   updateDays: Array<string>;
   url: string;
-  webtoonId: number;
-  _id: string;
+  thumbnail: Array<string>;
+  isEnd: boolean;
+  isFree: boolean;
+  isUpdated: boolean;
+  ageGrade: number;
+  freeWaitHour: number;
+  author: Array<string>;
+  total: string;
+  isLastPage: boolean;
 }
 
 const todayKey = Object.keys(WEEK)[new Date().getDay()];
@@ -70,7 +67,7 @@ const HomeMainCarousel = ({ data }: any) => {
     if (carouselDataQuery.isSuccess) {
       setCarouselData(carouselDataQuery.data.data.response);
       carouselDataQuery.data.data.response.forEach((e: WebtoonDataType) =>
-        preload(e.img)
+        preload(e.thumbnail[0])
       );
     }
   }, [carouselDataQuery]);
@@ -87,7 +84,7 @@ const HomeMainCarousel = ({ data }: any) => {
                   width={"100%"}
                   height={"90%"}
                   style={{ cursor: "pointer", objectFit: "contain" }}
-                  src={e.img}
+                  src={e.thumbnail[0]}
                   loading="lazy"
                 />
               </a>
