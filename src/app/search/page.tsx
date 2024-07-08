@@ -32,7 +32,9 @@ const Search = () => {
   useEffect(() => {
     if (searchDataQuery.isSuccess) {
       setSearchData(searchDataQuery.data.data.response);
-      searchDataQuery.data.data.response.forEach((e: any) => preload(e.img));
+      searchDataQuery.data.data.response.forEach((e: any) =>
+        preload(e.thumbnail[0])
+      );
     }
   }, [searchDataQuery]);
   return (
@@ -48,7 +50,7 @@ const Search = () => {
             {searchData.map((e, idx) => (
               <WebtoonsBox key={idx}>
                 <a href={e.url}>
-                  <WebtoonCardImg src={e.img} />
+                  <WebtoonCardImg src={e.thumbnail[0]} />
                 </a>
 
                 <WebtoonCardTextBox>
