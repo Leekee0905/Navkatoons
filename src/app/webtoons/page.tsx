@@ -54,7 +54,10 @@ const Webtoons = () => {
   useEffect(() => {
     if (webtoonDataQuery.isSuccess) {
       setWebtoonData(webtoonDataQuery.data.data.response);
-      webtoonDataQuery.data.data.response.forEach((e: any) => preload(e.img));
+      setPage(webtoonDataQuery.data.data.total);
+      webtoonDataQuery.data.data.response.forEach((e: any) =>
+        preload(e.thumbnail[0])
+      );
     }
   }, [webtoonDataQuery]);
 
@@ -66,7 +69,7 @@ const Webtoons = () => {
         {webtoonData.map((e, idx) => (
           <WebtoonsBox key={idx}>
             <a href={e.url}>
-              <WebtoonCardImg src={e.img} />
+              <WebtoonCardImg src={e.thumbnail[0]} />
             </a>
 
             <WebtoonCardTextBox>
