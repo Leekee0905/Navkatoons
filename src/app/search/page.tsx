@@ -33,7 +33,7 @@ const Search = () => {
     if (searchDataQuery.isSuccess) {
       setSearchData(searchDataQuery.data.data.response);
       searchDataQuery.data.data.response.forEach((e: any) =>
-        preload(e.thumbnail[0])
+        preload(e.thumbnail[0], { as: "image" })
       );
     }
   }, [searchDataQuery]);

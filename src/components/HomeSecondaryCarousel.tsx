@@ -38,7 +38,7 @@ const HomeSeconDaryCarousel = (props: { title: string; class: string }) => {
     if (carouselDataQuery.isSuccess) {
       setCarouselData(carouselDataQuery.data.data.response);
       carouselDataQuery.data.data.response.forEach((e: WebtoonDataType) =>
-        preload(e.thumbnail[0])
+        preload(e.thumbnail[0], { as: "image" })
       );
     }
   }, [carouselDataQuery]);

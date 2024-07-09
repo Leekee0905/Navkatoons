@@ -66,11 +66,11 @@ const HomeMainCarousel = ({ data }: any) => {
   useEffect(() => {
     if (carouselDataQuery.isSuccess) {
       setCarouselData(carouselDataQuery.data.data.response);
-      carouselDataQuery.data.data.response.forEach((e: WebtoonDataType) =>
-        preload(e.thumbnail[0])
-      );
+      carouselDataQuery.data.data.response.forEach((e: WebtoonDataType) => {
+        preload(e.thumbnail[0]);
+      });
     }
-  }, [carouselDataQuery]);
+  }, [carouselDataQuery.isSuccess, carouselDataQuery.data]);
 
   return (
     <div className="slider-container">
