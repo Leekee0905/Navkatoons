@@ -1,51 +1,16 @@
+import { PageObjType } from "@/app/webtoons/page";
 import { CustomPaginate } from "@/styles/Pagination";
+import { Dispatch } from "react";
 
-const Pagination = ({ page, setPage, week, service }: any) => {
-  //const [itemOffset, setItemOffset] = useState(0);
-  //const endOffset = itemOffset + itemsPerPage;
-  //const currentItems = items.slice(itemOffset, endOffset);
-  const getPageCount = (week: string, service: string): number => {
-    switch (service) {
-      case "naver":
-        switch (week) {
-          case "all":
-            return 97;
-          case "finished":
-            return 66;
-          default:
-            return 4;
-        }
-      case "kakao":
-        switch (week) {
-          case "all":
-            return 78;
-          case "finished":
-            return 40;
-          case "sun":
-            return 5;
-          default:
-            return 6;
-        }
-      case "kakaoPage":
-        switch (week) {
-          case "all":
-            return 101;
-          case "finished":
-            return 44;
-          case "mon":
-          case "sun":
-            return 8;
-          case "wed":
-          case "sat":
-            return 9;
-          case "fri":
-            return 11;
-          default:
-            return 10;
-        }
-      default:
-        return page;
-    }
+const Pagination = ({
+  page,
+  setPage,
+}: {
+  page: PageObjType;
+  setPage: Dispatch<number>;
+}) => {
+  const getPageNumber = () => {
+    return Math.ceil(page.total / 25);
   };
 
   const handlePageClick = (event: any) => {
@@ -59,7 +24,7 @@ const Pagination = ({ page, setPage, week, service }: any) => {
         nextLabel=">"
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
-        pageCount={getPageCount(week, service)}
+        pageCount={getPageNumber()}
         previousLabel="<"
         activeClassName="active"
         initialPage={0}
