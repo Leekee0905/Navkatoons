@@ -25,9 +25,18 @@ import {
 import { WebtoonDataType } from "@/components/HomeMainCarousel";
 import Pagination from "@/components/Pagination";
 
+export interface PageObjType {
+  total: number;
+  isLastPage: boolean;
+}
+
 const Webtoons = () => {
   const [webtoonData, setWebtoonData] = useState<WebtoonDataType[]>([]);
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
+  const [pageObj, setPageObj] = useState<PageObjType>({
+    total: 0,
+    isLastPage: false,
+  });
   const selectedWeek = useRecoilValue(selectedMenuState);
   const selected = useRecoilValue(selectedAllWebtoonType);
 
@@ -45,21 +54,24 @@ const Webtoons = () => {
         params: {
           service: filter,
           updateDay: weekFilter,
-          page: page,
+          page: page + 1,
         },
       }),
     staleTime: Infinity,
   });
-
   useEffect(() => {
     if (webtoonDataQuery.isSuccess) {
       setWebtoonData(webtoonDataQuery.data.data.response);
-      setPage(webtoonDataQuery.data.data.total);
+      setPageObj({
+        total: webtoonDataQuery.data.data.total,
+        isLastPage: webtoonDataQuery.data.data.isLastPage,
+      });
+
       webtoonDataQuery.data.data.response.forEach((e: any) =>
-        preload(e.thumbnail[0])
+        preload(e.thumbnail[0], { as: "image" })
       );
     }
-  }, [webtoonDataQuery]);
+  }, [webtoonDataQuery.isSuccess, webtoonDataQuery.data]);
 
   return (
     <div className="total-webtoons">
@@ -81,12 +93,7 @@ const Webtoons = () => {
           </WebtoonsBox>
         ))}
       </WebtoonsListContainer>
-      <Pagination
-        page={page}
-        week={weekFilter}
-        service={filter}
-        setPage={setPage}
-      />
+      <Pagination page={pageObj} setPage={setPage} />
     </div>
   );
 };

@@ -42,19 +42,22 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
       case "naver": {
         return NextResponse.json({
           response: naver.data.webtoons,
-          //total: naver.data.total,
+          total: naver.data.total,
+          isLastPage: naver.data.isLastPage,
         });
       }
       case "kakao": {
         return NextResponse.json({
           response: kakao.data.webtoons,
-          //total: kakao.data.total,
+          total: kakao.data.total,
+          isLastPage: kakao.data.isLastPage,
         });
       }
       case "kakaoPage": {
         return NextResponse.json({
           response: kakaoPage.data.webtoons,
-          //total: kakaoPage.data.total,
+          total: kakaoPage.data.total,
+          isLastPage: kakaoPage.data.isLastPage,
         });
       }
       default: {
