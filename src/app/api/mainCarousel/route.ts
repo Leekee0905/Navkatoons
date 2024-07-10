@@ -1,6 +1,7 @@
 "use server";
 import { NextRequest, NextResponse } from "next/server";
 import { apiInstance } from "../apiInstance";
+import { WebtoonDataType } from "@/components/HomeMainCarousel";
 
 export const GET = async (req: NextRequest, res: NextResponse) => {
   const params = req.nextUrl.searchParams;
@@ -31,7 +32,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
 
     switch (service) {
       case "naver": {
-        naver.data.webtoons.forEach((e): any => {
+        naver.data.webtoons.forEach((e: WebtoonDataType) => {
           e.thumbnail[0] = `${e.thumbnail[0]}?format=webp`;
         });
         return NextResponse.json({
@@ -39,7 +40,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
         });
       }
       case "kakao": {
-        kakao.data.webtoons.forEach((e): any => {
+        kakao.data.webtoons.forEach((e: WebtoonDataType) => {
           e.thumbnail[0] = `${e.thumbnail[0]}?format=webp`;
         });
         return NextResponse.json({
@@ -47,7 +48,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
         });
       }
       case "kakaoPage": {
-        kakaoPage.data.webtoons.forEach((e): any => {
+        kakaoPage.data.webtoons.forEach((e: WebtoonDataType) => {
           e.thumbnail[0] = `${e.thumbnail[0]}?format=webp`;
         });
         return NextResponse.json({
