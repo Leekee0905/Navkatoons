@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { selectedHomeCarouselType, WEEK } from "@/states/SelectedMenu";
 import { preload } from "./ImagePreload";
+import Image from "next/image";
 
 export interface WebtoonDataType {
   id: string;
@@ -73,20 +74,28 @@ const HomeMainCarousel = ({ data }: any) => {
   }, [carouselDataQuery.isSuccess, carouselDataQuery.data]);
 
   return (
-    <div className="slider-container">
+    <div className="slider-container" style={{ maxHeight: " 700px" }}>
       <HomeMainSlider {...settings}>
         {carouselData.map((e: any, idx: number) => {
           return (
             <HomeMainSlide key={idx}>
               <a href={e.url}>
-                <img
-                  alt="MainCarousel"
-                  width={"100%"}
-                  height={"90%"}
-                  style={{ cursor: "pointer", objectFit: "contain" }}
-                  src={e.thumbnail[0]}
-                  loading="lazy"
-                />
+                <picture>
+                  <source srcSet={e.thumbnail[0]} type="image/webp" />
+                  <Image
+                    alt="MainCarousel"
+                    width={590}
+                    height={630}
+                    style={{
+                      objectFit: "contain",
+                      maxWidth: "100%",
+                      maxHeight: "630px",
+                    }}
+                    placeholder="blur"
+                    blurDataURL="/placeholder.png"
+                    src={e.thumbnail[0]}
+                  />
+                </picture>
               </a>
               <HomeMainSlideTitleBox>
                 <HomeMainSlideTitleLink href={e.url}>
