@@ -12,7 +12,6 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
   const page = params.get("page");
 
   try {
-    // 카페 100 네이버 97페이지까지 카웹 77
     const naver = await apiInstance.get("/webtoons", {
       params: {
         provider: "NAVER",
