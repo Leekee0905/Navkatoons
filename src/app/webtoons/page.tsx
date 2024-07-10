@@ -93,7 +93,7 @@ const Webtoons = () => {
           </WebtoonsBox>
         ))}
       </WebtoonsListContainer>
-      <Pagination page={pageObj} setPage={setPage} />
+      <Pagination page={pageObj} setPage={setPage} nowPage={page} />
     </div>
   );
 };
