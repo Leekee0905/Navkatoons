@@ -37,6 +37,7 @@ export const SlideArrow = styled.div`
 export const HomeMainSlider = styled(Slider)`
   width: 100%;
   height: 700px;
+  max-height: 700px;
   margin: 0 auto;
   border-radius: 1rem;
   .slick-track {
