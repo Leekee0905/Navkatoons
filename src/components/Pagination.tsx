@@ -15,11 +15,10 @@ const Pagination = ({
   const getPageNumber = () => {
     return Math.ceil(page.total / 25);
   };
-  console.log(page, nowPage, Math.ceil(page.total / 25));
-
   useEffect(() => {
     setPageNumber(getPageNumber());
   }, [page]);
+
   const handlePageClick = (event: any) => {
     setPage(event.selected);
   };
@@ -34,7 +33,7 @@ const Pagination = ({
         pageCount={pageNumber}
         previousLabel="<"
         activeClassName="active"
-        initialPage={0}
+        initialPage={nowPage}
         renderOnZeroPageCount={null}
       />
     </>

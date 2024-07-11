@@ -73,6 +73,10 @@ const Webtoons = () => {
     }
   }, [webtoonDataQuery.isSuccess, webtoonDataQuery.data]);
 
+  useEffect(() => {
+    setPage(0);
+  }, [selected, selectedWeek]);
+
   return (
     <div className="total-webtoons">
       <WeeklyFilterHeader />
@@ -93,7 +97,7 @@ const Webtoons = () => {
           </WebtoonsBox>
         ))}
       </WebtoonsListContainer>
-      <Pagination page={pageObj} setPage={setPage} nowPage={page} />
+      <Pagination key={page} page={pageObj} setPage={setPage} nowPage={page} />
     </div>
   );
 };
