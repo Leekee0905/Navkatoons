@@ -3,7 +3,6 @@ import {
   WeekWebtoonsFilterContainer,
   WeekWebtoonsFilterMenu,
 } from "@/styles/WebtoonsFillter";
-import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
 interface WEEK_FILTER_MENU_TYPE {
