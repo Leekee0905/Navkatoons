@@ -60,6 +60,11 @@ export const HomeMainSlide = styled.div`
   background-color: #ebebeb; /* 원하는 배경색 설정 */
   height: 700px;
 `;
+export const HomeMainSlideImageBox = styled.div`
+  position: relative;
+  width: 100%;
+  height: 630px;
+`;
 export const HomeMainSlideTitleBox = styled.div`
   color: black;
   font-weight: bold;
@@ -81,7 +86,11 @@ export const HomeSecondarySlideTitle = styled.h3`
   margin-top: 50px;
   cursor: pointer;
 `;
-
+export const HomeSecondarySlideImageBox = styled.div`
+  position: relative;
+  width: 100%;
+  height: 220px;
+`;
 export const HomeSecondarySlider = styled(Slider)`
   width: 100%;
   height: 300px;
