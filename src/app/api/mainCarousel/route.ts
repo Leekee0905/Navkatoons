@@ -32,25 +32,16 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
 
     switch (service) {
       case "naver": {
-        naver.data.webtoons.forEach((e: WebtoonDataType) => {
-          e.thumbnail[0] = `${e.thumbnail[0]}?format=webp`;
-        });
         return NextResponse.json({
           response: naver.data.webtoons,
         });
       }
       case "kakao": {
-        kakao.data.webtoons.forEach((e: WebtoonDataType) => {
-          e.thumbnail[0] = `${e.thumbnail[0]}?format=webp`;
-        });
         return NextResponse.json({
           response: kakao.data.webtoons,
         });
       }
       case "kakaoPage": {
-        kakaoPage.data.webtoons.forEach((e: WebtoonDataType) => {
-          e.thumbnail[0] = `${e.thumbnail[0]}?format=webp`;
-        });
         return NextResponse.json({
           response: kakaoPage.data.webtoons,
         });

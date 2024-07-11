@@ -2,6 +2,7 @@
 
 import {
   HomeMainSlide,
+  HomeMainSlideImageBox,
   HomeMainSlider,
   HomeMainSlideTitleBox,
   HomeMainSlideTitleLink,
@@ -16,6 +17,7 @@ import { useRecoilValue } from "recoil";
 import { selectedHomeCarouselType, WEEK } from "@/states/SelectedMenu";
 import { preload } from "./ImagePreload";
 import Image from "next/image";
+import imageLoader from "./ImageLoader";
 
 export interface WebtoonDataType {
   id: string;
@@ -81,22 +83,28 @@ const HomeMainCarousel = ({ data }: any) => {
             <HomeMainSlide key={idx}>
               <a href={e.url}>
                 <picture>
-                  <source srcSet={e.thumbnail[0]} type="image/webp" />
-                  <Image
-                    alt="MainCarousel"
-                    width={590}
-                    height={630}
-                    style={{
-                      objectFit: "contain",
-                      maxWidth: "100%",
-                      maxHeight: "630px",
-                    }}
-                    placeholder="blur"
-                    blurDataURL="/placeholder.png"
-                    src={e.thumbnail[0]}
-                  />
+                  <HomeMainSlideImageBox>
+                    <source srcSet={e.thumbnail[0]} type="image/webp" />
+                    <Image
+                      alt="MainCarousel"
+                      loader={imageLoader}
+                      fill
+                      style={{
+                        objectFit: "contain",
+                        maxWidth: "100%",
+                        maxHeight: "630px",
+                      }}
+                      placeholder="blur"
+                      blurDataURL="/placeholder.png"
+                      src={e.thumbnail[0]}
+                      quality={10}
+                      sizes="(max-with: 590px) 100vw, (max-width: 290px) 50vw"
+                      priority
+                    />
+                  </HomeMainSlideImageBox>
                 </picture>
               </a>
+
               <HomeMainSlideTitleBox>
                 <HomeMainSlideTitleLink href={e.url}>
                   {e.title}
