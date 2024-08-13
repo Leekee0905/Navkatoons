@@ -3,8 +3,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/imageProxy",
-        destination: "https://navkatoons.vercel.app",
+        source: "/api/imageProxy/:path*",
+        destination: "https://navkatoons.vercel.app/:path*",
       },
     ];
   },
