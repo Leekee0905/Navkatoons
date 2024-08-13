@@ -6,10 +6,11 @@ import { Readable } from "stream";
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const imageUrl = searchParams.get("imageUrl");
-
   if (!imageUrl) {
     return NextResponse.json({ error: "Invalid imageUrl" }, { status: 400 });
   }
+  const imageResponse = await fetch(imageUrl);
+  console.log(imageResponse);
 
   try {
     const imageResponse = await fetchImage(imageUrl);

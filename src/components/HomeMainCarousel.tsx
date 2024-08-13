@@ -64,6 +64,7 @@ const HomeMainCarousel = ({ data }: any) => {
       }),
     staleTime: Infinity,
   });
+
   useEffect(() => {
     if (carouselDataQuery.isSuccess) {
       setCarouselData(carouselDataQuery.data.data.response);
@@ -80,26 +81,24 @@ const HomeMainCarousel = ({ data }: any) => {
           return (
             <HomeMainSlide key={idx}>
               <a href={e.url}>
-                <picture>
-                  <HomeMainSlideImageBox>
-                    <Image
-                      alt="MainCarousel"
-                      fill
-                      style={{
-                        objectFit: "contain",
-                        maxWidth: "100%",
-                        maxHeight: "630px",
-                      }}
-                      placeholder="blur"
-                      blurDataURL="/placeholder.png"
-                      src={`/api/imageProxy?imageUrl=${encodeURIComponent(
-                        e.thumbnail[0]
-                      )}`}
-                      sizes="(max-width: 590px) 100vw, (max-width: 290px) 50vw"
-                      priority
-                    />
-                  </HomeMainSlideImageBox>
-                </picture>
+                <HomeMainSlideImageBox>
+                  <Image
+                    alt="MainCarousel"
+                    fill
+                    style={{
+                      objectFit: "contain",
+                      maxWidth: "100%",
+                      maxHeight: "630px",
+                    }}
+                    placeholder="blur"
+                    blurDataURL="/placeholder.png"
+                    src={`/api/imageProxy?imageUrl=${encodeURIComponent(
+                      e.thumbnail[0]
+                    )}`}
+                    sizes="(max-width: 590px) 100vw, (max-width: 290px) 50vw"
+                    priority
+                  />
+                </HomeMainSlideImageBox>
               </a>
 
               <HomeMainSlideTitleBox>

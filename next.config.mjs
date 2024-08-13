@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/api/imageProxy/:path*",
+        destination: "/:path*",
+      },
+    ];
+  },
+  crossOrigin: "anonymous",
   compiler: {
     styledComponents: true,
   },
@@ -11,6 +20,18 @@ const nextConfig = {
         hostname: "image-comic.pstatic.net",
         port: "",
         pathname: "/webtoon/**",
+      },
+      {
+        protocol: "https",
+        hostname: "https://page-images.kakaoentcdn.com",
+        port: "",
+        pathname: "/download/**",
+      },
+      {
+        protocol: "https",
+        hostname: "https://kr-a.kakaopagecdn.com",
+        port: "",
+        pathname: "/**",
       },
     ],
     formats: ["image/webp"],
