@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/api/imageProxy/:path*",
-      "destination": "https://image-comic.pstatic.net/webtoon/:path*"
-    }
-  ]
-}

@@ -4,11 +4,12 @@ const nextConfig = {
     styledComponents: true,
   },
   reactStrictMode: false,
+  trailingSlash: true,
   async rewrites() {
     return [
       {
         source: "/api/imageProxy/:path*",
-        destination: "https://image-comic.pstatic.net/webtoon/:path*", // 실제 이미지 서버 URL
+        destination: "https://image-comic.pstatic.net/webtoon/:path*",
       },
     ];
   },
