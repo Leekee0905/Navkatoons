@@ -18,12 +18,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path",
-        destination: "https://navkatoons.vercel.app:path*",
-      },
-      {
-        source: "/api/:path/*",
-        destination: "https://navkatoons.vercel.app/:path*/",
+        source: "/api",
+        destination: "https://navkatoons.vercel.app",
       },
     ];
   },
