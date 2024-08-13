@@ -1,13 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: "/api/imageProxy/:path*",
-        destination: "https://navkatoons.vercel.app/:path*",
-      },
-    ];
-  },
   crossOrigin: "anonymous",
   compiler: {
     styledComponents: true,
@@ -30,6 +22,12 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "https://kr-a.kakaopagecdn.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "https://navkatoons.vercel.app",
         port: "",
         pathname: "/**",
       },
