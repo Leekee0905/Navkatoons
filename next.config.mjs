@@ -3,8 +3,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/imageProxy/:path*",
-        destination: "/:path*",
+        source: "/api/imageProxy",
+        destination: "/api/imageProxy",
       },
     ];
   },

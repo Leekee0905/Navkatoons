@@ -9,9 +9,6 @@ export async function GET(req: NextRequest) {
   if (!imageUrl) {
     return NextResponse.json({ error: "Invalid imageUrl" }, { status: 400 });
   }
-  const imageResponse = await fetch(imageUrl);
-  console.log(imageResponse);
-
   try {
     const imageResponse = await fetchImage(imageUrl);
 
