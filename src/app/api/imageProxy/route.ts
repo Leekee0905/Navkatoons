@@ -1,3 +1,5 @@
+// app/api/image-proxy/route.ts
+
 import { NextRequest, NextResponse } from "next/server";
 import https from "https";
 import { IncomingMessage } from "http";
@@ -17,13 +19,12 @@ export async function GET(req: NextRequest) {
     // Content-Type이 이미지인지 확인
     const contentType = imageResponse.headers["content-type"];
     if (!contentType || !contentType.startsWith("image/")) {
+      const responseBody = await streamToBuffer(imageResponse).then((buf) =>
+        buf.toString()
+      );
+      console.error("Received non-image response:", responseBody); // 서버 로그에 에러 출력
       return NextResponse.json(
-        {
-          error: "The requested resource is not a valid image",
-          responseBody: await streamToBuffer(imageResponse).then((buf) =>
-            buf.toString()
-          ),
-        },
+        { error: "The requested resource is not a valid image", responseBody },
         { status: 400 }
       );
     }
@@ -37,6 +38,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (err: any) {
+    console.error("Image proxy error:", err.message); // 서버 로그에 에러 출력
     return NextResponse.json(
       { error: "Image proxy failed", details: err.message },
       { status: 500 }
