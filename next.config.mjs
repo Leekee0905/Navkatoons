@@ -7,7 +7,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
+        source: "/api/imageProxy/:path*",
         destination: "https://image-comic.pstatic.net/webtoon/:path*", // 실제 이미지 서버 URL
       },
     ];
