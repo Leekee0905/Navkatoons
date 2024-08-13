@@ -95,7 +95,7 @@ const HomeMainCarousel = ({ data }: any) => {
                       src={`/api/imageProxy?imageUrl=${encodeURIComponent(
                         e.thumbnail[0]
                       )}`}
-                      sizes="(max-with: 590px) 100vw, (max-width: 290px) 50vw"
+                      sizes="(max-width: 590px) 100vw, (max-width: 290px) 50vw"
                       priority
                     />
                   </HomeMainSlideImageBox>

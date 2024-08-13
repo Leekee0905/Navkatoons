@@ -28,7 +28,7 @@ const Home = () => {
     <div className="home_contents">
       <WebtoonFilter home={true} />
       <HomeMainCarousel />
-      {Object.keys(HomeWebtoons).map((title: string, idx: number) => {
+      {/* {Object.keys(HomeWebtoons).map((title: string, idx: number) => {
         return (
           <HomeSeconDaryCarousel
             title={HomeWebtoons[title]}
@@ -36,7 +36,7 @@ const Home = () => {
             key={idx}
           />
         );
-      })}
+      })} */}
     </div>
   );
 };

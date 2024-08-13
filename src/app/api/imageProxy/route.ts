@@ -1,32 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
+import https from "https";
+import { IncomingMessage } from "http";
+import { Readable } from "stream";
 
 export async function GET(req: NextRequest) {
-  const url = new URL(req.url);
-  const imageUrl = url.searchParams.get("imageUrl");
+  const { searchParams } = new URL(req.url);
+  const imageUrl = searchParams.get("imageUrl");
 
   if (!imageUrl) {
     return NextResponse.json({ error: "Invalid imageUrl" }, { status: 400 });
   }
 
   try {
-    const response = await fetch(imageUrl);
+    const imageResponse = await fetchImage(imageUrl);
 
-    if (!response.ok) {
-      return new NextResponse("Failed to fetch image", {
-        status: response.status,
-      });
-    }
-
-    const contentType = response.headers.get("Content-Type");
+    // Content-Type이 이미지인지 확인
+    const contentType = imageResponse.headers["content-type"];
     if (!contentType || !contentType.startsWith("image/")) {
-      const responseBody = await response.text();
       return NextResponse.json(
-        { error: "The requested resource is not a valid image", responseBody },
+        {
+          error: "The requested resource is not a valid image",
+          responseBody: await streamToBuffer(imageResponse).then((buf) =>
+            buf.toString()
+          ),
+        },
         { status: 400 }
       );
     }
 
-    const buffer = await streamToBuffer(response.body);
+    // Readable 스트림을 Buffer로 변환
+    const buffer = await streamToBuffer(imageResponse);
 
     return new NextResponse(buffer, {
       headers: {
@@ -41,24 +44,35 @@ export async function GET(req: NextRequest) {
   }
 }
 
-async function streamToBuffer(
-  stream: ReadableStream<Uint8Array> | null
-): Promise<Buffer> {
-  if (!stream) {
-    throw new Error("Stream is null");
-  }
+async function fetchImage(url: string): Promise<IncomingMessage> {
+  return new Promise((resolve, reject) => {
+    https
+      .get(
+        url,
+        {
+          headers: {
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+          },
+        },
+        (proxyRes) => {
+          if (proxyRes.statusCode !== 200) {
+            reject(new Error(`Failed to fetch image: ${proxyRes.statusCode}`));
+            return;
+          }
 
-  const reader = stream.getReader();
-  const chunks: Uint8Array[] = [];
-  let done = false;
+          resolve(proxyRes);
+        }
+      )
+      .on("error", reject);
+  });
+}
 
-  while (!done) {
-    const { value, done: doneReading } = await reader.read();
-    done = doneReading;
-    if (value) {
-      chunks.push(value);
-    }
-  }
-
-  return Buffer.concat(chunks);
+function streamToBuffer(stream: Readable): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    stream.on("data", (chunk) => chunks.push(chunk));
+    stream.on("end", () => resolve(Buffer.concat(chunks)));
+    stream.on("error", reject);
+  });
 }
