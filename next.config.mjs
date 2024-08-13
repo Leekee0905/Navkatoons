@@ -9,6 +9,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "**",
+      },
+      {
+        protocol: "https",
         hostname: "image-comic.pstatic.net",
         port: "",
         pathname: "/webtoon/**",
@@ -22,12 +26,6 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "https://kr-a.kakaopagecdn.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "https://navkatoons.vercel.app",
         port: "",
         pathname: "/**",
       },
