@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: "/api/imageProxy",
-        destination: "/api/imageProxy",
+        destination: "https://navkatoons.vercel.app",
       },
     ];
   },
