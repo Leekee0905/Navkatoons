@@ -8,8 +8,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/imageProxy/:path*",
-        destination: "https://image-comic.pstatic.net/webtoon/:path*",
+        source: "/api/imageProxy/:path*/",
+        destination: "https://image-comic.pstatic.net/webtoon/:path*/",
       },
     ];
   },
