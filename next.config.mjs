@@ -18,8 +18,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api",
-        destination: "https://navkatoons.vercel.app",
+        source: "/api/imageProxy/:path*",
+        destination: "https://image-comic.pstatic.net/webtoon/:path*",
       },
     ];
   },
