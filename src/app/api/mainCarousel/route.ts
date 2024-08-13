@@ -1,7 +1,6 @@
 "use server";
 import { NextRequest, NextResponse } from "next/server";
 import { apiInstance } from "../apiInstance";
-import { WebtoonDataType } from "@/components/HomeMainCarousel";
 
 export const GET = async (req: NextRequest, res: NextResponse) => {
   const params = req.nextUrl.searchParams;

@@ -3,19 +3,17 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**",
-      },
-      {
-        protocol: "http",
-        hostname: "**",
+        hostname: "image-comic.pstatic.net",
+        port: "",
+        pathname: "/webtoon/**",
       },
     ],
+    formats: ["image/webp"],
   },
 };
 

@@ -24,6 +24,7 @@ import {
 } from "@/states/SelectedMenu";
 import { WebtoonDataType } from "@/components/HomeMainCarousel";
 import Pagination from "@/components/Pagination";
+import Image from "next/image";
 
 export interface PageObjType {
   total: number;
@@ -66,10 +67,6 @@ const Webtoons = () => {
         total: webtoonDataQuery.data.data.total,
         isLastPage: webtoonDataQuery.data.data.isLastPage,
       });
-
-      webtoonDataQuery.data.data.response.forEach((e: any) =>
-        preload(e.thumbnail[0], { as: "image" })
-      );
     }
   }, [webtoonDataQuery.isSuccess, webtoonDataQuery.data]);
 
@@ -85,7 +82,21 @@ const Webtoons = () => {
         {webtoonData.map((e, idx) => (
           <WebtoonsBox key={idx}>
             <a href={e.url}>
-              <WebtoonCardImg src={e.thumbnail[0]} />
+              <Image
+                alt="all-image"
+                src={`/api/imageProxy?imageUrl=${encodeURIComponent(
+                  e.thumbnail[0]
+                )}`}
+                width={200}
+                height={200}
+                style={{
+                  display: "block",
+                  textDecoration: "none",
+                  backgroundColor: "#ebebeb",
+                  cursor: "pointer",
+                  objectFit: "contain",
+                }}
+              />
             </a>
 
             <WebtoonCardTextBox>

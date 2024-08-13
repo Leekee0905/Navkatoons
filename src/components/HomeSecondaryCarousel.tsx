@@ -39,9 +39,6 @@ const HomeSeconDaryCarousel = (props: { title: string; class: string }) => {
   useEffect(() => {
     if (carouselDataQuery.isSuccess) {
       setCarouselData(carouselDataQuery.data.data.response);
-      carouselDataQuery.data.data.response.forEach((e: WebtoonDataType) => {
-        preload(e.thumbnail[0], { as: "image" });
-      });
     }
   }, [carouselDataQuery]);
 
@@ -52,21 +49,21 @@ const HomeSeconDaryCarousel = (props: { title: string; class: string }) => {
         {carouselData.map((e, idx) => (
           <HomeSecondarySlide key={idx}>
             <a href={e.url}>
-              <picture>
-                <HomeSecondarySlideImageBox>
-                  <source srcSet={e.thumbnail[0]} type="image/webp" />
-                  <Image
-                    alt="SeondaryCarousel"
-                    loader={imageLoader}
-                    fill
-                    placeholder="blur"
-                    blurDataURL="/placeholder.png"
-                    style={{ cursor: "pointer", objectFit: "contain" }}
-                    src={e.thumbnail[0]}
-                    priority
-                  />
-                </HomeSecondarySlideImageBox>
-              </picture>
+              <HomeSecondarySlideImageBox>
+                <Image
+                  alt="SeondaryCarousel"
+                  fill
+                  placeholder="blur"
+                  blurDataURL="/placeholder.png"
+                  style={{ cursor: "pointer", objectFit: "contain" }}
+                  src={`/api/imageProxy?imageUrl=${encodeURIComponent(
+                    e.thumbnail[0]
+                  )}`}
+                  quality={10}
+                  sizes="(max-with: 230px) 100vw, (max-width: 220px) 50vw"
+                  priority
+                />
+              </HomeSecondarySlideImageBox>
             </a>
 
             <HomeSecondarySlideWebtoonTitleBox>

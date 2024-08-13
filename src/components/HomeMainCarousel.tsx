@@ -15,9 +15,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { selectedHomeCarouselType, WEEK } from "@/states/SelectedMenu";
-import { preload } from "./ImagePreload";
 import Image from "next/image";
-import imageLoader from "./ImageLoader";
 
 export interface WebtoonDataType {
   id: string;
@@ -69,9 +67,9 @@ const HomeMainCarousel = ({ data }: any) => {
   useEffect(() => {
     if (carouselDataQuery.isSuccess) {
       setCarouselData(carouselDataQuery.data.data.response);
-      carouselDataQuery.data.data.response.forEach((e: WebtoonDataType) => {
-        preload(e.thumbnail[0]);
-      });
+      // carouselDataQuery.data.data.response.forEach((e: WebtoonDataType) => {
+      //   preload(e.thumbnail[0]);
+      // });
     }
   }, [carouselDataQuery.isSuccess, carouselDataQuery.data]);
 
@@ -84,10 +82,8 @@ const HomeMainCarousel = ({ data }: any) => {
               <a href={e.url}>
                 <picture>
                   <HomeMainSlideImageBox>
-                    <source srcSet={e.thumbnail[0]} type="image/webp" />
                     <Image
                       alt="MainCarousel"
-                      loader={imageLoader}
                       fill
                       style={{
                         objectFit: "contain",
@@ -96,8 +92,9 @@ const HomeMainCarousel = ({ data }: any) => {
                       }}
                       placeholder="blur"
                       blurDataURL="/placeholder.png"
-                      src={e.thumbnail[0]}
-                      quality={10}
+                      src={`/api/imageProxy?imageUrl=${encodeURIComponent(
+                        e.thumbnail[0]
+                      )}`}
                       sizes="(max-with: 590px) 100vw, (max-width: 290px) 50vw"
                       priority
                     />
