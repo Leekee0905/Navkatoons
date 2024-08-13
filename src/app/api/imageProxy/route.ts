@@ -2,14 +2,15 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import https from "https";
-import { IncomingMessage } from "http";
 import { Readable } from "stream";
+import { IncomingMessage } from "http";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const imageUrl = searchParams.get("imageUrl");
 
   if (!imageUrl) {
+    console.error("Invalid imageUrl parameter"); // 로깅 추가
     return NextResponse.json({ error: "Invalid imageUrl" }, { status: 400 });
   }
 
@@ -22,7 +23,7 @@ export async function GET(req: NextRequest) {
       const responseBody = await streamToBuffer(imageResponse).then((buf) =>
         buf.toString()
       );
-      console.error("Received non-image response:", responseBody); // 서버 로그에 에러 출력
+      console.error("Received non-image response:", responseBody); // 로깅 추가
       return NextResponse.json(
         { error: "The requested resource is not a valid image", responseBody },
         { status: 400 }
@@ -38,7 +39,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (err: any) {
-    console.error("Image proxy error:", err.message); // 서버 로그에 에러 출력
+    console.error("Image proxy error:", err.message); // 로깅 추가
     return NextResponse.json(
       { error: "Image proxy failed", details: err.message },
       { status: 500 }
@@ -59,6 +60,7 @@ async function fetchImage(url: string): Promise<IncomingMessage> {
         },
         (proxyRes) => {
           if (proxyRes.statusCode !== 200) {
+            console.error(`Failed to fetch image: ${proxyRes.statusCode}`); // 로깅 추가
             reject(new Error(`Failed to fetch image: ${proxyRes.statusCode}`));
             return;
           }
@@ -66,7 +68,10 @@ async function fetchImage(url: string): Promise<IncomingMessage> {
           resolve(proxyRes);
         }
       )
-      .on("error", reject);
+      .on("error", (err) => {
+        console.error("Error during HTTPS request:", err.message); // 로깅 추가
+        reject(err);
+      });
   });
 }
 
@@ -75,6 +80,9 @@ function streamToBuffer(stream: Readable): Promise<Buffer> {
     const chunks: Buffer[] = [];
     stream.on("data", (chunk) => chunks.push(chunk));
     stream.on("end", () => resolve(Buffer.concat(chunks)));
-    stream.on("error", reject);
+    stream.on("error", (err) => {
+      console.error("Error converting stream to buffer:", err.message); // 로깅 추가
+      reject(err);
+    });
   });
 }
