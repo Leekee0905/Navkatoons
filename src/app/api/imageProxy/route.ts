@@ -5,16 +5,26 @@ export async function GET(req: NextRequest) {
   const imageUrl = url.searchParams.get("imageUrl");
 
   if (!imageUrl) {
+    console.error("Invalid imageUrl parameter"); // 로깅 추가
     return NextResponse.json({ error: "Invalid imageUrl" }, { status: 400 });
   }
 
   try {
-    const imageResponse = await fetch(imageUrl);
+    // 이미지 요청
+    const response = await fetch(imageUrl);
 
-    // Content-Type이 이미지인지 확인
-    const contentType = imageResponse.headers.get("Content-Type");
+    // 응답 상태 확인
+    if (!response.ok) {
+      return new NextResponse("Failed to fetch image", {
+        status: response.status,
+      });
+    }
+
+    // Content-Type 확인
+    const contentType = response.headers.get("Content-Type");
     if (!contentType || !contentType.startsWith("image/")) {
-      const responseBody = await imageResponse.text();
+      const responseBody = await response.text();
+      console.error("Received non-image response:", responseBody); // 로깅 추가
       return NextResponse.json(
         { error: "The requested resource is not a valid image", responseBody },
         { status: 400 }
@@ -22,7 +32,7 @@ export async function GET(req: NextRequest) {
     }
 
     // ReadableStream을 Buffer로 변환
-    const buffer = await streamToBuffer(imageResponse.body);
+    const buffer = await streamToBuffer(response.body);
 
     return new NextResponse(buffer, {
       headers: {
@@ -30,6 +40,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (err: any) {
+    console.error("Image proxy error:", err.message); // 로깅 추가
     return NextResponse.json(
       { error: "Image proxy failed", details: err.message },
       { status: 500 }
