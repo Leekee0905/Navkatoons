@@ -15,14 +15,6 @@ const nextConfig = {
     ],
     formats: ["image/webp"],
   },
-  async rewrites() {
-    return [
-      {
-        source: "/api/imageProxy/:path*",
-        destination: "https://image-comic.pstatic.net/webtoon/:path*",
-      },
-    ];
-  },
 };
 
 export default nextConfig;
