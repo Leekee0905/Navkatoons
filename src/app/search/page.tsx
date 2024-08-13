@@ -14,6 +14,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { preload } from "react-dom";
 import NoResult from "./components/NoResult";
+import Image from "next/image";
 
 const Search = () => {
   const params = useSearchParams().get("key");
@@ -50,7 +51,21 @@ const Search = () => {
             {searchData.map((e, idx) => (
               <WebtoonsBox key={idx}>
                 <a href={e.url}>
-                  <WebtoonCardImg src={e.thumbnail[0]} />
+                  <Image
+                    alt="search-image"
+                    src={`/api/imageProxy?imageUrl=${encodeURIComponent(
+                      e.thumbnail[0]
+                    )}`}
+                    width={200}
+                    height={200}
+                    style={{
+                      display: "block",
+                      textDecoration: "none",
+                      backgroundColor: "#ebebeb",
+                      cursor: "pointer",
+                      objectFit: "contain",
+                    }}
+                  />
                 </a>
 
                 <WebtoonCardTextBox>
